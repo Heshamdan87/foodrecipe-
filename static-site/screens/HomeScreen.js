@@ -235,17 +235,20 @@ class HomeScreen {
   }
 
   /**
-   * Create Recipes Section (equivalent to React Native Recipes component)  
-   * Now properly renders the Recipes component with props
+   * Create Recipes Section (equivalent to React Native Recipe component)  
+   * Now properly renders the Recipe component with props (renamed from Recipes)
    */
   createRecipes() {
     const filteredFoods = this.getFilteredFoods();
     
-    // Create Recipes component and pass props: foods and categories
-    const recipesComponent = new Recipes(
+    // Create Recipe component and pass props: foods and categories
+    const recipeComponent = new Recipe(
       filteredFoods,    // foods prop (filtered recipes)
       this.categories   // categories prop
     );
+
+    // Store reference globally for event handlers
+    window.currentRecipeComponent = recipeComponent;
 
     return `
       <div class="food-list" data-testid="foodList">
@@ -253,7 +256,7 @@ class HomeScreen {
           ${this.activeCategory} Recipes 
           <span class="recipe-count">(${filteredFoods.length})</span>
         </h3>
-        ${recipesComponent.render()}
+        ${recipeComponent.render()}
       </div>
     `;
   }

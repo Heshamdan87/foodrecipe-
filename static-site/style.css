@@ -518,3 +518,206 @@ body {
         max-width: 100%;
     }
 }
+
+/* ========================================
+   REACT NATIVE STYLE GRID LAYOUT
+   FlatList with numColumns={2} equivalent
+   ======================================== */
+
+/* Main Recipe Component Container */
+.recipe-component[data-testid="recipesDisplay"] {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+/* FlatList Container */
+.flatlist-container[data-num-columns="2"] {
+    width: 100%;
+    padding: 16px;
+    background-color: #f8f9fa;
+}
+
+/* Recipes Grid - Two Column Layout */
+.recipes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Grid Items */
+.grid-item {
+    width: 100%;
+    min-height: 200px;
+}
+
+/* Article Card (Individual Recipe Card) */
+.article-card[data-testid="articleDisplay"] {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* TouchableOpacity Wrapper */
+.touchable-opacity-wrapper {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    transition: opacity 0.2s ease;
+}
+
+.touchable-opacity-wrapper:active {
+    opacity: 0.7;
+}
+
+.touchable-opacity-wrapper:focus {
+    outline: 2px solid #007AFF;
+    outline-offset: 2px;
+}
+
+/* Recipe Thumbnail */
+.recipe-thumbnail {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff6b6b, #ffa500);
+    position: relative;
+}
+
+.recipe-image-icon {
+    font-size: 3rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Recipe Content */
+.recipe-content {
+    padding: 12px;
+    height: calc(100% - 120px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Recipe Name */
+.recipe-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+    max-height: 36px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* Recipe Description */
+.recipe-description {
+    font-size: 12px;
+    color: #666;
+    margin: 0 0 8px 0;
+    line-height: 1.4;
+    flex: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* Recipe Category Badge */
+.recipe-category-badge {
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+.category-text {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+}
+
+.empty-state h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 480px) {
+    .flatlist-container[data-num-columns="2"] {
+        padding: 8px;
+    }
+    
+    .recipes-grid {
+        gap: 8px;
+    }
+    
+    .grid-item {
+        min-height: 180px;
+    }
+    
+    .recipe-thumbnail {
+        height: 100px;
+    }
+    
+    .recipe-image-icon {
+        font-size: 2.5rem;
+    }
+    
+    .recipe-content {
+        padding: 8px;
+        height: calc(100% - 100px);
+    }
+    
+    .recipe-name {
+        font-size: 13px;
+    }
+    
+    .recipe-description {
+        font-size: 11px;
+    }
+}

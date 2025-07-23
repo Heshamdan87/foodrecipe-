@@ -1,92 +1,59 @@
 /**
- * Recipes.js - Web Component  
- * Equivalent to React Native Recipes component
+ * Recipes.js - React Native-style Web Component  
+ * Equivalent to React Native Recipe component with FlatList
  * 
- * This component displays the filtered list of recipes
- * based on the selected category
+ * This component displays a list of recipe items using a grid layout
+ * similar to React Native's FlatList with numColumns={2}
  */
 
-class Recipes {
+class Recipe {
   constructor(foods, categories) {
-    this.foods = foods;
-    this.categories = categories;
+    this.foods = foods || [];
+    this.categories = categories || [];
+    this.navigation = window.webNavigation; // React Native-style navigation prop
   }
 
   /**
-   * Get category info by name
-   * @param {String} categoryName - Name of the category
-   * @returns {Object} Category object with icon and details
+   * ArticleCard Component - Inner component for individual recipe items
+   * Equivalent to React Native ArticleCard component
+   * @param {Object} item - Recipe data object
+   * @param {Number} index - Position of recipe in the list
+   * @param {Object} navigation - Navigation object for screen transitions
+   * @returns {String} HTML for individual recipe card
    */
-  getCategoryInfo(categoryName) {
-    return this.categories.find(cat => cat.strCategory === categoryName) || {
-      strCategory: categoryName,
-      strCategoryThumb: '🍽️'
-    };
-  }
-
-  /**
-   * Format recipe instructions for display
-   * @param {String} instructions - Full recipe instructions
-   * @returns {String} Truncated instructions
-   */
-  formatInstructions(instructions) {
-    if (instructions.length > 100) {
-      return instructions.substring(0, 100) + '...';
-    }
-    return instructions;
-  }
-
-  /**
-   * Handle recipe click event - Now uses React Native-style navigation
-   * @param {String} recipeId - ID of the selected recipe
-   */
-  handleRecipeClick(recipeId) {
-    const recipe = this.foods.find(food => food.idMeal === recipeId);
-    if (recipe) {
-      console.log('Recipe selected:', recipe.recipeName);
-      
-      // React Native-style navigation using web navigation system
-      if (window.webNavigation) {
-        window.webNavigation.navigate('RecipeDetail', { recipe });
-      } else {
-        // Fallback to original method
-        if (typeof viewRecipeDetail === 'function') {
-          viewRecipeDetail(recipeId);
-        }
-      }
-    }
-  }
-
-  /**
-   * Render individual recipe card
-   * @param {Object} food - Recipe object
-   * @returns {String} HTML for recipe card
-   */
-  renderRecipeCard(food) {
+  ArticleCard(item, index, navigation) {
+    // Escape quotes in recipe data for safe embedding in onclick
+    const safeRecipeData = JSON.stringify(item).replace(/"/g, '&quot;');
+    
     return `
-      <div class="recipe-card" 
-           data-recipe-id="${food.idMeal}"
-           onclick="if(window.webNavigation) { window.webNavigation.navigate('RecipeDetail', { recipe: ${JSON.stringify(food).replace(/"/g, '&quot;')} }); } else { viewRecipeDetail('${food.idMeal}'); }"
-           role="button"
-           tabindex="0"
-           aria-label="View ${food.recipeName} recipe"
-           onkeypress="if(event.key==='Enter') { if(window.webNavigation) { window.webNavigation.navigate('RecipeDetail', { recipe: ${JSON.stringify(food).replace(/"/g, '&quot;')} }); } else { viewRecipeDetail('${food.idMeal}'); } }">>
-        
-        <div class="recipe-image">
-          <span class="recipe-icon" role="img" aria-label="${food.recipeName}">${food.recipeImage}</span>
-        </div>
-        
-        <div class="recipe-info">
-          <h4 class="recipe-name">${food.recipeName}</h4>
-          <p class="recipe-preview">${this.formatInstructions(food.recipeInstructions)}</p>
+      <div class="article-card" data-testid="articleDisplay">
+        <!-- TouchableOpacity equivalent - Clickable area for recipe navigation -->
+        <div class="touchable-opacity-wrapper" 
+             onclick="window.handleRecipePress('${item.idMeal}')"
+             role="button"
+             tabindex="0"
+             aria-label="View ${item.recipeName} recipe details"
+             onkeypress="if(event.key==='Enter') { window.handleRecipePress('${item.idMeal}'); }">
           
-          <div class="recipe-meta">
-            <span class="recipe-category">${food.category}</span>
-            <button class="view-recipe-btn" 
-                    onclick="event.stopPropagation(); viewRecipeDetail('${food.idMeal}')"
-                    aria-label="View ${food.recipeName} details">
-              View Recipe
-            </button>
+          <!-- Recipe Thumbnail Image -->
+          <div class="recipe-thumbnail">
+            <span class="recipe-image-icon" role="img" aria-label="${item.recipeName}">
+              ${item.recipeImage}
+            </span>
+          </div>
+          
+          <!-- Recipe Content -->
+          <div class="recipe-content">
+            <!-- Recipe Name -->
+            <h4 class="recipe-name">${item.recipeName}</h4>
+            
+            <!-- Recipe Description -->
+            <p class="recipe-description">${this.formatDescription(item.recipeInstructions)}</p>
+            
+            <!-- Recipe Category Badge -->
+            <div class="recipe-category-badge">
+              <span class="category-text">${item.category}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -94,15 +61,66 @@ class Recipes {
   }
 
   /**
-   * Render the complete recipes list
-   * Equivalent to React Native Recipes component render
+   * Format recipe description for display
+   * @param {String} instructions - Full recipe instructions
+   * @returns {String} Truncated description for card display
+   */
+  formatDescription(instructions) {
+    if (!instructions) return 'Delicious recipe with amazing flavors';
+    if (instructions.length > 80) {
+      return instructions.substring(0, 80) + '...';
+    }
+    return instructions;
+  }
+
+  /**
+   * Handle recipe press - Navigate to RecipeDetail screen
+   * Equivalent to React Native TouchableOpacity onPress
+   * @param {String} recipeId - ID of the selected recipe
+   */
+  handleRecipePress(recipeId) {
+    const recipe = this.foods.find(food => food.idMeal === recipeId);
+    if (recipe && this.navigation) {
+      console.log('Navigating to RecipeDetail with:', recipe.recipeName);
+      
+      // React Native-style navigation to RecipeDetail screen
+      this.navigation.navigate('RecipeDetail', { recipe });
+    } else {
+      console.warn('Navigation not available or recipe not found');
+    }
+  }
+
+  /**
+   * Key extractor for FlatList equivalent
+   * @param {Object} item - Recipe item
+   * @param {Number} index - Item index
+   * @returns {String} Unique key for the item
+   */
+  keyExtractor(item, index) {
+    return item.idMeal || index.toString();
+  }
+
+  /**
+   * Render item function for FlatList equivalent
+   * @param {Object} item - Recipe data
+   * @param {Number} index - Item index
+   * @returns {String} HTML for rendered item
+   */
+  renderItem(item, index) {
+    return this.ArticleCard(item, index, this.navigation);
+  }
+
+  /**
+   * Main Render Method - Equivalent to React Native component render
+   * Uses FlatList-style grid layout with numColumns={2}
    */
   render() {
+    // Handle empty data case
     if (!this.foods || this.foods.length === 0) {
       return `
-        <div class="recipes-component">
-          <div class="no-recipes">
-            <div class="no-recipes-icon">🍽️</div>
+        <div class="recipe-component" data-testid="recipesDisplay">
+          <div class="empty-state">
+            <div class="empty-icon">🍽️</div>
             <h3>No recipes found</h3>
             <p>Try selecting a different category</p>
           </div>
@@ -110,35 +128,56 @@ class Recipes {
       `;
     }
 
-    const recipesHTML = this.foods.map(food => this.renderRecipeCard(food)).join('');
+    // Generate grid items using FlatList equivalent
+    const recipeItems = this.foods.map((item, index) => {
+      return `
+        <div class="grid-item" data-key="${this.keyExtractor(item, index)}">
+          ${this.renderItem(item, index)}
+        </div>
+      `;
+    }).join('');
 
     return `
-      <div class="recipes-component">
-        <div class="recipes-header">
-          <div class="recipes-stats">
-            <span class="recipe-count">${this.foods.length} recipe${this.foods.length !== 1 ? 's' : ''} found</span>
+      <!-- Main View component with testID="recipesDisplay" -->
+      <div class="recipe-component" data-testid="recipesDisplay">
+        
+        <!-- FlatList equivalent with numColumns={2} grid layout -->
+        <div class="flatlist-container" 
+             data-num-columns="2"
+             role="grid"
+             aria-label="Recipes grid">
+          
+          <!-- Grid container for two-column layout -->
+          <div class="recipes-grid">
+            ${recipeItems}
           </div>
+          
         </div>
         
-        <div class="recipes-container">
-          ${recipesHTML}
-        </div>
       </div>
     `;
   }
 
   /**
-   * Static method to create and render recipes
-   * @param {Array} foods - Array of recipe objects (filtered)
+   * Static method to create Recipe component instance
+   * @param {Array} foods - Array of recipe objects (filtered data)
    * @param {Array} categories - Array of all categories
+   * @returns {String} Rendered HTML
    */
   static create(foods, categories) {
-    const recipesComponent = new Recipes(foods, categories);
-    return recipesComponent.render();
+    const recipeComponent = new Recipe(foods, categories);
+    return recipeComponent.render();
   }
 }
 
+// Make handleRecipePress available globally for onclick handlers
+window.handleRecipePress = function(recipeId) {
+  if (window.currentRecipeComponent) {
+    window.currentRecipeComponent.handleRecipePress(recipeId);
+  }
+};
+
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = Recipes;
+  module.exports = Recipe;
 }
