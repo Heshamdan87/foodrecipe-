@@ -400,15 +400,33 @@ class WebNavigationContainer {
     }
 
     renderMyRecipeScreen() {
-        this.renderGenericScreen('myRecipeScreen', 'My Recipes', this.createMyRecipeHTML());
+        console.log('Rendering MyRecipeScreen component');
+        
+        // Hide all other screens
+        this.hideAllScreens();
+        
+        // Initialize MyRecipeScreen component
+        MyRecipeScreen.init();
     }
 
     renderCustomRecipesScreen() {
-        this.renderGenericScreen('customRecipesScreen', 'Custom Recipes', this.createCustomRecipesHTML());
+        console.log('Rendering CustomRecipesScreen component');
+        
+        // Hide all other screens
+        this.hideAllScreens();
+        
+        // Initialize CustomRecipesScreen component
+        CustomRecipesScreen.init();
     }
 
     renderRecipesFormScreen() {
-        this.renderGenericScreen('recipesFormScreen', 'Add Recipe', this.createRecipesFormHTML());
+        console.log('Rendering RecipesFormScreen component');
+        
+        // Hide all other screens
+        this.hideAllScreens();
+        
+        // Initialize RecipesFormScreen component
+        RecipesFormScreen.init();
     }
 
     renderFavoriteScreen() {
