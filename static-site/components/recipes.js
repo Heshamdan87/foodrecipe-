@@ -37,7 +37,7 @@ class Recipes {
   }
 
   /**
-   * Handle recipe click event
+   * Handle recipe click event - Now uses React Native-style navigation
    * @param {String} recipeId - ID of the selected recipe
    */
   handleRecipeClick(recipeId) {
@@ -45,10 +45,14 @@ class Recipes {
     if (recipe) {
       console.log('Recipe selected:', recipe.recipeName);
       
-      // In React Native this would be: navigation.navigate('RecipeDetail', { recipe })
-      // For web, we'll trigger the viewRecipeDetail function
-      if (typeof viewRecipeDetail === 'function') {
-        viewRecipeDetail(recipeId);
+      // React Native-style navigation using web navigation system
+      if (window.webNavigation) {
+        window.webNavigation.navigate('RecipeDetail', { recipe });
+      } else {
+        // Fallback to original method
+        if (typeof viewRecipeDetail === 'function') {
+          viewRecipeDetail(recipeId);
+        }
       }
     }
   }
@@ -62,11 +66,11 @@ class Recipes {
     return `
       <div class="recipe-card" 
            data-recipe-id="${food.idMeal}"
-           onclick="viewRecipeDetail('${food.idMeal}')"
+           onclick="if(window.webNavigation) { window.webNavigation.navigate('RecipeDetail', { recipe: ${JSON.stringify(food).replace(/"/g, '&quot;')} }); } else { viewRecipeDetail('${food.idMeal}'); }"
            role="button"
            tabindex="0"
            aria-label="View ${food.recipeName} recipe"
-           onkeypress="if(event.key==='Enter') viewRecipeDetail('${food.idMeal}')">
+           onkeypress="if(event.key==='Enter') { if(window.webNavigation) { window.webNavigation.navigate('RecipeDetail', { recipe: ${JSON.stringify(food).replace(/"/g, '&quot;')} }); } else { viewRecipeDetail('${food.idMeal}'); } }">>
         
         <div class="recipe-image">
           <span class="recipe-icon" role="img" aria-label="${food.recipeName}">${food.recipeImage}</span>

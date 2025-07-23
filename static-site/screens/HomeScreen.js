@@ -179,20 +179,23 @@ class HomeScreen {
 
   /**
    * Create Header Section (equivalent to React Native header View)
+   * Following React Native structure with StatusBar and proper testID
    */
   createHeader() {
     return `
       <div class="header-container" data-testid="headerContainer">
         <div class="user-info">
           <div class="avatar">
-            👤
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23667eea'/%3E%3Ctext x='20' y='26' text-anchor='middle' fill='white' font-size='20'%3E👤%3C/text%3E%3C/svg%3E" alt="User Avatar" />
           </div>
           <div class="greeting">
             <span class="greeting-text">Hello, User!</span>
           </div>
         </div>
         <div class="notification-icon">
-          🔔
+          <button class="notification-btn" onclick="console.log('Notifications clicked')" aria-label="Notifications">
+            🔔
+          </button>
         </div>
       </div>
     `;
@@ -200,6 +203,7 @@ class HomeScreen {
 
   /**
    * Create Title Section (equivalent to React Native title View)
+   * Following React Native structure with proper testID
    */
   createTitle() {
     return `
@@ -212,52 +216,36 @@ class HomeScreen {
 
   /**
    * Create Categories Section (equivalent to React Native Categories component)
+   * Now properly renders the Categories component with props
    */
   createCategories() {
-    const categoriesHTML = this.categories.map(category => `
-      <button 
-        class="category-item ${category.strCategory === this.activeCategory ? 'active' : ''}"
-        onclick="homeScreen.handleChangeCategory('${category.strCategory}')"
-        data-category="${category.strCategory}"
-      >
-        <span class="category-icon">${category.strCategoryThumb}</span>
-        <span class="category-name">${category.strCategory}</span>
-      </button>
-    `).join('');
+    // Create Categories component and pass props: categories, activeCategory, handleChangeCategory
+    const categoriesComponent = new Categories(
+      this.categories,           // categories prop
+      this.activeCategory,       // activeCategory prop  
+      this.handleChangeCategory  // handleChangeCategory prop
+    );
 
     return `
       <div class="category-list" data-testid="categoryList">
         <h3 class="section-title">Categories</h3>
-        <div class="categories-container">
-          ${categoriesHTML}
-        </div>
+        ${categoriesComponent.render()}
       </div>
     `;
   }
 
   /**
-   * Create Recipes Section (equivalent to React Native Recipes component)
+   * Create Recipes Section (equivalent to React Native Recipes component)  
+   * Now properly renders the Recipes component with props
    */
   createRecipes() {
     const filteredFoods = this.getFilteredFoods();
     
-    const recipesHTML = filteredFoods.map(food => `
-      <div class="recipe-card" data-recipe-id="${food.idMeal}">
-        <div class="recipe-image">
-          <span class="recipe-icon">${food.recipeImage}</span>
-        </div>
-        <div class="recipe-info">
-          <h4 class="recipe-name">${food.recipeName}</h4>
-          <p class="recipe-preview">${food.recipeInstructions.substring(0, 80)}...</p>
-          <div class="recipe-meta">
-            <span class="recipe-category">${food.category}</span>
-            <button class="view-recipe-btn" onclick="viewRecipeDetail('${food.idMeal}')">
-              View Recipe
-            </button>
-          </div>
-        </div>
-      </div>
-    `).join('');
+    // Create Recipes component and pass props: foods and categories
+    const recipesComponent = new Recipes(
+      filteredFoods,    // foods prop (filtered recipes)
+      this.categories   // categories prop
+    );
 
     return `
       <div class="food-list" data-testid="foodList">
@@ -265,9 +253,7 @@ class HomeScreen {
           ${this.activeCategory} Recipes 
           <span class="recipe-count">(${filteredFoods.length})</span>
         </h3>
-        <div class="recipes-container">
-          ${recipesHTML}
-        </div>
+        ${recipesComponent.render()}
       </div>
     `;
   }
@@ -320,6 +306,29 @@ class HomeScreen {
     console.log('Filtered Recipes:', this.getFilteredFoods().length);
     
     this.render();
+  }
+
+  /**
+   * Static initialization method (equivalent to React Native component registration)
+   * Following React Native lifecycle patterns
+   */
+  static init() {
+    console.log('HomeScreen static initialization');
+    
+    // Make sure webNavigation is available globally (equivalent to React Native Navigation prop)
+    if (typeof window.webNavigation === 'undefined') {
+      console.warn('Warning: webNavigation not found. Make sure navigation system is initialized first.');
+    }
+    
+    // Create global homeScreen instance (equivalent to React Native component instance)
+    if (typeof window.homeScreen === 'undefined') {
+      window.homeScreen = new HomeScreen();
+    }
+    
+    // Simulate React Native's initial render
+    window.homeScreen.init();
+    
+    return window.homeScreen;
   }
 }
 

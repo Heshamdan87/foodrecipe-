@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="welcome-screen.css">
     <link rel="stylesheet" href="screens/HomeScreen.css">
+    <link rel="stylesheet" href="navigation/navigation.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -22,7 +23,13 @@
                 Recipe Collection
             </h1>
             <nav class="nav">
-                <button class="btn-primary" onclick="openAddRecipeModal()">
+                <button class="nav-button" onclick="if(window.webNavigation) window.webNavigation.navigate('FavoriteScreen')">
+                    <i class="fas fa-heart"></i> Favorites
+                </button>
+                <button class="nav-button" onclick="if(window.webNavigation) window.webNavigation.navigate('MyFood')">
+                    <i class="fas fa-user"></i> My Recipes
+                </button>
+                <button class="btn-primary" onclick="if(window.webNavigation) window.webNavigation.navigate('RecipesFormScreen'); else openAddRecipeModal();">
                     <i class="fas fa-plus"></i> Add Recipe
                 </button>
             </nav>
@@ -135,7 +142,9 @@
         </div>
     </footer>
 
-    <!-- Include JavaScript Components -->
+    <!-- Include Enhanced JavaScript Components -->
+    <script type="module" src="navigation/NavigationTypes.js"></script>
+    <script type="module" src="navigation/index.js"></script>
     <script src="components/categories.js"></script>
     <script src="components/recipes.js"></script>
     <script src="screens/HomeScreen.js"></script>
