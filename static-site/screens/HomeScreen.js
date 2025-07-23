@@ -192,7 +192,12 @@ class HomeScreen {
             <span class="greeting-text">Hello, User!</span>
           </div>
         </div>
-        <div class="notification-icon">
+        <div class="header-actions">
+          <button class="favorites-btn" 
+                  onclick="if(window.webNavigation) window.webNavigation.navigate('FavoriteScreen')" 
+                  aria-label="My Favorites">
+            ❤️ My Favorites
+          </button>
           <button class="notification-btn" onclick="console.log('Notifications clicked')" aria-label="Notifications">
             🔔
           </button>

@@ -1,0 +1,371 @@
+/* ========================================
+   FAVORITE SCREEN STYLES
+   React Native-style FlatList and TouchableOpacity
+   ======================================== */
+
+/* Main Screen Container */
+.favorite-screen {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  font-family: 'Arial', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+/* Header Section */
+.favorite-header {
+  background: linear-gradient(135deg, #ff6b6b, #ffa500);
+  color: white;
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.screen-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.favorites-count {
+  font-size: 16px;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+/* View Container (testID="favoriteRecipes") */
+.view-container[data-testid="favoriteRecipes"] {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  min-height: calc(100vh - 120px);
+}
+
+/* ========================================
+   TOUCHABLE OPACITY BACK BUTTON STYLES
+   ======================================== */
+
+.back-button-container {
+  margin-bottom: 20px;
+}
+
+.touchable-opacity-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #007AFF;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.touchable-opacity-back:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+.touchable-opacity-back:active {
+  transform: translateY(0);
+  opacity: 0.8;
+}
+
+.touchable-opacity-back:focus {
+  outline: 2px solid #007AFF;
+  outline-offset: 2px;
+}
+
+.back-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.back-text {
+  font-weight: 600;
+}
+
+/* ========================================
+   FLATLIST STYLES
+   React Native FlatList equivalent
+   ======================================== */
+
+.flatlist-container {
+  width: 100%;
+  background: transparent;
+}
+
+/* FlatList Content Container (contentContainerStyle equivalent) */
+.flatlist-content-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+.flatlist-item {
+  width: 100%;
+}
+
+/* ========================================
+   RECIPE CARD TOUCHABLE OPACITY STYLES
+   ======================================== */
+
+.recipe-card-touchable {
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.recipe-card-touchable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.recipe-card-touchable:active {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.recipe-card-touchable:focus {
+  outline: 2px solid #ff6b6b;
+  outline-offset: 2px;
+}
+
+/* Favorite Recipe Card */
+.favorite-recipe-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease;
+}
+
+.favorite-recipe-card:hover {
+  border-color: #ff6b6b;
+}
+
+/* Recipe Image Container */
+.recipe-image-container {
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(135deg, #ff6b6b, #ffa500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.recipe-image {
+  font-size: 3rem;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Recipe Info */
+.recipe-info {
+  padding: 16px;
+}
+
+.recipe-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recipe-category {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+/* ========================================
+   EMPTY STATE STYLES
+   ======================================== */
+
+.empty-state-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-state-content {
+  max-width: 400px;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 24px;
+  opacity: 0.6;
+}
+
+.empty-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+}
+
+.empty-message {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 32px 0;
+  line-height: 1.5;
+}
+
+/* TouchableOpacity Button in Empty State */
+.touchable-opacity-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff6b6b, #ffa500);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  text-decoration: none;
+}
+
+.touchable-opacity-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+  background: linear-gradient(135deg, #ff5252, #ff9800);
+}
+
+.touchable-opacity-button:active {
+  transform: translateY(0);
+  opacity: 0.9;
+}
+
+.touchable-opacity-button:focus {
+  outline: 2px solid #ff6b6b;
+  outline-offset: 2px;
+}
+
+.button-text {
+  font-weight: 600;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  .favorite-header {
+    padding: 20px 16px;
+  }
+  
+  .screen-title {
+    font-size: 24px;
+  }
+  
+  .view-container[data-testid="favoriteRecipes"] {
+    padding: 16px;
+  }
+  
+  .flatlist-content-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+  }
+  
+  .recipe-image-container {
+    height: 120px;
+  }
+  
+  .recipe-image {
+    font-size: 2.5rem;
+  }
+  
+  .recipe-info {
+    padding: 12px;
+  }
+  
+  .recipe-name {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .favorite-header {
+    padding: 16px 12px;
+  }
+  
+  .screen-title {
+    font-size: 20px;
+  }
+  
+  .view-container[data-testid="favoriteRecipes"] {
+    padding: 12px;
+  }
+  
+  .flatlist-content-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .touchable-opacity-back {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  .recipe-image-container {
+    height: 100px;
+  }
+  
+  .recipe-image {
+    font-size: 2rem;
+  }
+  
+  .empty-icon {
+    font-size: 3rem;
+  }
+  
+  .empty-title {
+    font-size: 20px;
+  }
+  
+  .empty-message {
+    font-size: 14px;
+  }
+  
+  .touchable-opacity-button {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+}

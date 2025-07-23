@@ -412,8 +412,13 @@ class WebNavigationContainer {
     }
 
     renderFavoriteScreen() {
-        const favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
-        this.renderGenericScreen('favoriteScreen', 'Favorite Recipes', this.createFavoriteHTML(favorites));
+        console.log('Rendering FavoriteScreen component');
+        
+        // Hide all other screens
+        this.hideAllScreens();
+        
+        // Initialize FavoriteScreen component
+        FavoriteScreen.init();
     }
 
     // 🛠️ Screen HTML Generators
