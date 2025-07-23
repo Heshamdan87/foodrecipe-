@@ -1,0 +1,160 @@
+/**
+ * RecipesFormScreen.css - Styling for React Native Component
+ * 
+ * CSS styles that complement the React Native StyleSheet
+ * Used for web compatibility and additional styling support
+ */
+
+.recipes-form-screen {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.recipes-form-header {
+  background-color: #ffffff;
+  padding: 16px;
+  border-bottom: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recipes-form-header-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #343a40;
+  text-align: center;
+  margin: 0;
+}
+
+.recipes-form-container {
+  padding: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.recipes-form-input-group {
+  margin-bottom: 20px;
+}
+
+.recipes-form-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 8px;
+}
+
+.recipes-form-input {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 16px;
+  color: #495057;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.recipes-form-input:focus {
+  border-color: #007bff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.recipes-form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.recipes-form-image-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.recipes-form-image-preview {
+  max-width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+}
+
+.recipes-form-image-placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recipes-form-placeholder-text {
+  font-size: 16px;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.recipes-form-save-button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.recipes-form-save-button:hover {
+  background-color: #0056b3;
+}
+
+.recipes-form-save-button:active {
+  background-color: #004085;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .recipes-form-container {
+    padding: 12px;
+  }
+  
+  .recipes-form-header-title {
+    font-size: 20px;
+  }
+  
+  .recipes-form-input {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  
+  .recipes-form-save-button {
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+}
+
+/* Accessibility improvements */
+.recipes-form-input:invalid {
+  border-color: #dc3545;
+}
+
+.recipes-form-input:valid {
+  border-color: #28a745;
+}
+
+/* Loading and disabled states */
+.recipes-form-save-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.recipes-form-loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
