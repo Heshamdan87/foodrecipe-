@@ -390,22 +390,13 @@ class WebNavigationContainer {
             return;
         }
 
-        // Remove existing recipe detail screen
-        const existingScreen = document.getElementById('recipeDetailScreen');
-        if (existingScreen) {
-            existingScreen.remove();
-        }
-
-        // Create new recipe detail screen
-        const screenHTML = this.createRecipeDetailHTML(recipe);
-        document.body.insertAdjacentHTML('beforeend', screenHTML);
+        console.log('Rendering RecipeDetailScreen with recipe:', recipe.recipeName);
         
-        // Show the screen
-        const newScreen = document.getElementById('recipeDetailScreen');
-        if (newScreen) {
-            newScreen.style.display = 'block';
-            newScreen.classList.add('active');
-        }
+        // Hide all other screens
+        this.hideAllScreens();
+        
+        // Initialize RecipeDetailScreen component with recipe data
+        RecipeDetailScreen.init({ recipe });
     }
 
     renderMyRecipeScreen() {
