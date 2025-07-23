@@ -1,0 +1,177 @@
+/* Web equivalent of React Native WelcomeScreen */
+/* Add this to your existing styles.css */
+
+/* Welcome Screen Styles */
+.welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #FBBF24, #f59e0b);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
+}
+
+.welcome-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Animated Rings */
+.logo-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.animated-ring {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation-fill-mode: both;
+}
+
+.ring-1 {
+    animation: expandRing 0.8s ease-out 0.1s;
+}
+
+.ring-2 {
+    animation: expandRing 0.8s ease-out 0.3s;
+}
+
+@keyframes expandRing {
+    from {
+        width: 0;
+        height: 0;
+        padding: 0;
+    }
+    to {
+        width: 200px;
+        height: 200px;
+        padding: 20px;
+    }
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b6b, #ffa500);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: white;
+    z-index: 10;
+    position: relative;
+    animation: logoFadeIn 1s ease-out 0.5s both;
+}
+
+@keyframes logoFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Text Animations */
+.welcome-text {
+    text-align: center;
+    color: white;
+    animation: textSlideUp 1s ease-out 0.8s both;
+}
+
+.welcome-title {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.welcome-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    letter-spacing: 0.05em;
+}
+
+@keyframes textSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading indicator */
+.loading-dots {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.loading-dot {
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    animation: loadingPulse 1.5s ease-in-out infinite;
+}
+
+.loading-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes loadingPulse {
+    0%, 80%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    40% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .welcome-title {
+        font-size: 2.5rem;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1rem;
+    }
+    
+    .logo {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+    
+    @keyframes expandRing {
+        to {
+            width: 120px;
+            height: 120px;
+            padding: 15px;
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "webServerPort": 3001,
+    "webSocketPort": 3002,
+    "FilesDirectory": "DesignTool",
+    "useTerminalOutputCapture": true,
+    "useTerminalOutputAnsiStrip": false,
+    "useTerminalOutputToHtml": true
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie - Recipe Collection App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="welcome-screen.css">
+    <link rel="stylesheet" href="screens/HomeScreen.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- App Container for HomeScreen -->
+    <div id="app-container">
+        <!-- HomeScreen will be rendered here -->
+    </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-utensils"></i>
+                Recipe Collection
+            </h1>
+            <nav class="nav">
+                <button class="btn-primary" onclick="openAddRecipeModal()">
+                    <i class="fas fa-plus"></i> Add Recipe
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Discover Amazing Recipes</h2>
+            <p>A simple collection of delicious recipes to try at home</p>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search recipes..." onkeyup="searchRecipes()">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filters">
+        <div class="container">
+            <h3>Categories</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterRecipes('all')">All</button>
+                <button class="filter-btn" onclick="filterRecipes('breakfast')">Breakfast</button>
+                <button class="filter-btn" onclick="filterRecipes('lunch')">Lunch</button>
+                <button class="filter-btn" onclick="filterRecipes('dinner')">Dinner</button>
+                <button class="filter-btn" onclick="filterRecipes('dessert')">Dessert</button>
+                <button class="filter-btn" onclick="filterRecipes('snack')">Snack</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipes Section -->
+    <section class="recipes-section">
+        <div class="container">
+            <div id="recipesContainer" class="recipes-grid">
+                <!-- Recipes will be displayed here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Recipe Modal -->
+    <div id="addRecipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddRecipeModal()">&times;</span>
+            <h2>Add New Recipe</h2>
+            <form id="recipeForm" onsubmit="addRecipe(event)">
+                <div class="form-group">
+                    <label for="recipeName">Recipe Name:</label>
+                    <input type="text" id="recipeName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeCategory">Category:</label>
+                    <select id="recipeCategory" required>
+                        <option value="">Select a category</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="dessert">Dessert</option>
+                        <option value="snack">Snack</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeTime">Cooking Time:</label>
+                    <input type="text" id="recipeTime" placeholder="e.g., 30 minutes" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeServings">Servings:</label>
+                    <input type="number" id="recipeServings" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeDescription">Description:</label>
+                    <textarea id="recipeDescription" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeIngredients">Ingredients (one per line):</label>
+                    <textarea id="recipeIngredients" rows="6" placeholder="1 cup flour&#10;2 eggs&#10;1/2 cup sugar" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeInstructions">Instructions (one per line):</label>
+                    <textarea id="recipeInstructions" rows="8" placeholder="Preheat oven to 350°F&#10;Mix dry ingredients&#10;Add wet ingredients" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary">Add Recipe</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Recipe Detail Modal -->
+    <div id="recipeDetailModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeRecipeDetailModal()">&times;</span>
+            <div id="recipeDetailContent">
+                <!-- Recipe details will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Recipe Collection - IBM Course Final Project</p>
+        </div>
+    </footer>
+
+    <!-- Include JavaScript Components -->
+    <script src="components/categories.js"></script>
+    <script src="components/recipes.js"></script>
+    <script src="screens/HomeScreen.js"></script>
+    <script src="welcome-screen.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- Initialize HomeScreen -->
+    <script>
+        // Global HomeScreen instance
+        let homeScreen;
+        
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Foodie App Starting...');
+            
+            // Create and initialize HomeScreen
+            homeScreen = new HomeScreen();
+            homeScreen.init();
+            
+            console.log('✅ HomeScreen initialized successfully');
+            console.log('📱 App ready for use');
+        });
+    </script>
+</body>
+</html>
